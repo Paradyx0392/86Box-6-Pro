@@ -1,4 +1,4 @@
-# Fedora RPM spec file for 86Box including roms
+# Fedora RPM spec file for 86Box Pro including roms
 #
 # To create RPM files from this spec file, run the following commands:
 #  sudo dnf install rpm-build
@@ -14,7 +14,7 @@
 
 %global romver 6.0
 
-Name:		86Box
+Name:		86Box Pro
 Version:	6.0
 Release:	1%{?dist}
 Summary:	Classic PC emulator
@@ -52,7 +52,7 @@ Requires: fluid-soundfont-gm
 Requires: 86Box-roms
 
 %description
-86Box is a hypervisor and IBM PC system emulator that specializes in
+86Box Pro is a hypervisor and IBM PC system emulator that specializes in
 running old operating systems and software designed for IBM
 PC systems and compatibles from 1981 through fairly recent
 system designs based on the PCI bus.
@@ -60,13 +60,13 @@ system designs based on the PCI bus.
 It supports various models of PCs, graphics and sound cards, and CPUs.
 
 %package	roms
-Summary:	ROMs for use with 86Box
+Summary:	ROMs for use with 86Box Pro
 Version:	%{romver}
 License:	Proprietary
 BuildArch:	noarch
 
 %description	roms
-Collection of ROMs for use with 86Box.
+Collection of ROMs for use with 86Box Pro.
 
 %prep
 %autosetup -p1 -a1
@@ -121,5 +121,5 @@ popd
 %{_datadir}/%{name}/roms
 
 %changelog
-* Sat Aug 31 Jasmine Iwanek <jriwanek[AT]gmail.com> 6.0-1
-- Bump release
+* Sat May 31 2026 Paradyx Point <paradyx0392[AT]gmail.com> 6.0
+- Professional release

@@ -75,16 +75,71 @@ machine_at_acerm3a_init(const machine_t *model)
     return ret;
 }
 
+static const device_config_t p55t2p4_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "p55t2p4",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 0207",
+                .internal_name = "p55t2p4",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/p55t2p4/T25I0207.AWD", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 0207-2 (Beta and Patch)",
+                .internal_name = "p55t2p4_beta2",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/p55t2p4/0207_j2.bin", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t p55t2p4_device = {
+    .name          = "ASUS P/I-P55T2P4",
+    .internal_name = "p55t2p4",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = p55t2p4_config
+};
+
 int
 machine_at_p55t2p4_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/p55t2p4/0207_j2.bin",
-                           0x000e0000, 131072, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn  = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret = bios_load_linear(fn, 0x000e0000, 131072, 0);
+    device_context_restore();
 
     machine_at_common_init(model);
 
@@ -700,16 +755,71 @@ machine_at_ap5vm_init(const machine_t *model)
     return ret;
 }
 
+static const device_config_t p55tvp4_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "p55tvp4",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 0204",
+                .internal_name = "p55tvp4",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/p55tvp4/TV5I0204.AWD", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 0204 (Patch)",
+                .internal_name = "p55tvp4_128gb",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/p55tvp4/0204_128.bin", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t p55tvp4_device = {
+    .name          = "ASUS P/I-P55TVP4",
+    .internal_name = "p55tvp4",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = p55tvp4_config
+};
+
 int
 machine_at_p55tvp4_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/p55tvp4/0204_128.BIN",
-                           0x000e0000, 131072, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn  = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret = bios_load_linear(fn, 0x000e0000, 131072, 0);
+    device_context_restore();
 
     machine_at_common_init(model);
 
@@ -759,16 +869,71 @@ machine_at_5ivg_init(const machine_t *model)
     return ret;
 }
 
+static const device_config_t b8500tvx_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "8500tvxa",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "AMIBIOS 6 (071595) - Revision June 19",
+                .internal_name = "8500tvxa",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/8500tvxa/tvx0619b.rom", "" }
+            },
+            {
+                .name          = "AMIBIOS 6 (071595) - Revision October 16",
+                .internal_name = "8500tvxa_oct16",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/8500tvxa/tvx1016b.rom", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t b8500tvx_device = {
+    .name          = "Biostar MB-8500TVX-A",
+    .internal_name = "b8500tvx",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = b8500tvx_config
+};
+
 int
-machine_at_8500tvxa_init(const machine_t *model)
+machine_at_b8500tvx_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/8500tvxa/tvx0619b.rom",
-                           0x000e0000, 131072, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn  = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret = bios_load_linear(fn, 0x000e0000, 131072, 0);
+    device_context_restore();
 
     machine_at_common_init(model);
 
@@ -783,7 +948,12 @@ machine_at_8500tvxa_init(const machine_t *model)
     device_add(&i430vx_device);
     device_add(&piix3_device);
     device_add_params(machine_get_kbc_device(machine), (void *) model->kbc_params);
-    device_add_params(&um8669f_device, (void *) 0);
+
+    if (!strcmp(fn, "roms/machines/8500tvxa/tvx0619b.rom"))
+        device_add_params(&um8669f_device, (void *) 0);
+    else
+        device_add_params(&fdc37c669_device, (void *) FDC37C6XX_370);
+    
     device_add(&sst_flash_29ee010_device);
 
     return ret;
@@ -903,6 +1073,15 @@ static const device_config_t p5vxb_config[] = {
                 .local         = 0,
                 .size          = 131072,
                 .files         = { "roms/machines/p5vxb/P5VXB10.BIN", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 1.5",
+                .internal_name = "p5vxb_451pg15",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/p5vxb/P5VXB15.BIN", "" }
             },
             {
                 .name          = "Award Modular BIOS v4.51PG - Revision 1.5c",
@@ -1189,16 +1368,71 @@ machine_at_pb680_init(const machine_t *model)
     return ret;
 }
 
+static const device_config_t pb810_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "pb810",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision v1.25I (Packard Bell OEM)",
+                .internal_name = "pb810",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/pb810/G400125I.BIN", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision v1.25I (NEC OEM)",
+                .internal_name = "pb810_nec",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/pb810/NECV125I.BIN", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t pb810_device = {
+    .name          = "Packard Bell PB810",
+    .internal_name = "pb810",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = pb810_config
+};
+
 int
 machine_at_pb810_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/pb810/G400125I.BIN",
-                           0x000e0000, 131072, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn  = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret = bios_load_linear(fn, 0x000e0000, 131072, 0);
+    device_context_restore();
 
     machine_at_common_init(model);
 
@@ -1350,16 +1584,71 @@ machine_at_nupro592_init(const machine_t *model)
     return ret;
 }
 
+static const device_config_t tx97_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "tx97",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 0108",
+                .internal_name = "tx97",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/tx97/TX5I0108.AWD", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 0112-1",
+                .internal_name = "tx97_beta",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/tx97/0112.001", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t tx97_device = {
+    .name          = "ASUS TX97",
+    .internal_name = "tx97",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = tx97_config
+};
+
 int
 machine_at_tx97_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/tx97/0112.001",
-                           0x000e0000, 131072, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn  = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret = bios_load_linear(fn, 0x000e0000, 131072, 0);
+    device_context_restore();
 
     machine_at_common_init(model);
 
@@ -1944,16 +2233,71 @@ machine_at_an430tx_init(const machine_t *model)
     return ret;
 }
 
+static const device_config_t mb540n_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "mb540n",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 07/20/1998",
+                .internal_name = "mb540n",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/mb540n/tx0720ug.bin", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.51PG - Release 4.2 (by eSupport)",
+                .internal_name = "mb540n_esupport",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/mb540n/2a59iv3e.bin", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t mb540n_device = {
+    .name          = "PC Partner MB540N",
+    .internal_name = "mb540n",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = mb540n_config
+};
+
 int
 machine_at_mb540n_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/mb540n/Tx0720ug.bin",
-                           0x000e0000, 131072, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn  = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret = bios_load_linear(fn, 0x000e0000, 131072, 0);
+    device_context_restore();
 
     machine_at_common_init(model);
 
@@ -2074,16 +2418,71 @@ machine_at_richmond_init(const machine_t *model)
 }
 
 /* VIA VPX */
+static const device_config_t ficva502_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "ficva502",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 1.13AJ139",
+                .internal_name = "ficva502",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/ficva502/ajw1393dc4.awd", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 1.13AJ139 (patch)",
+                .internal_name = "ficva502_patch",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/ficva502/VA502bp.BIN", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t ficva502_device = {
+    .name          = "FIC VA-502",
+    .internal_name = "ficva502_device",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = ficva502_config
+};
+
 int
 machine_at_ficva502_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/ficva502/VA502bp.BIN",
-                           0x000e0000, 131072, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn  = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret = bios_load_linear(fn, 0x000e0000, 131072, 0);
+    device_context_restore();
 
     machine_at_common_init(model);
 
@@ -2167,16 +2566,71 @@ machine_at_5avp3_init(const machine_t *model)
     return ret;
 }
 
+static const device_config_t via809ds_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "via809ds",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "AMIBIOS 6 (071595) - Revision 04/22/1998",
+                .internal_name = "via809ds",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/via809ds/v30422sg.bin", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 05/06/1998",
+                .internal_name = "via809ds_451pg",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/via809ds/vp30506s.bin", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t via809ds_device = {
+    .name          = "PC Partner VIA809DS",
+    .internal_name = "via809ds_device",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = via809ds_config
+};
+
 int
 machine_at_via809ds_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/via809ds/v30422sg.rom",
-                           0x000e0000, 131072, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn  = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret = bios_load_linear(fn, 0x000e0000, 131072, 0);
+    device_context_restore();
 
     machine_at_common_init(model);
 
@@ -2257,6 +2711,15 @@ static const device_config_t ms5146_config[] = {
                 .size          = 131072,
                 .files         = { "roms/machines/ms5146/W546MS21.BIN", "" }
             },
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 2.2 (Fujitsu-Siemens OEM)",
+                .internal_name = "ms5146_fujitsu",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/ms5146/W546F122.BIN", "" }
+            },
             { .files_no = 0 }
         }
     },
@@ -2322,6 +2785,15 @@ static const device_config_t r534f_config[] = {
         .spinner        = { 0 },
         .selection      = { { 0 } },
         .bios           = {
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 09/11/1997",
+                .internal_name = "r534f_1997",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/r534f/r534f007.bin", "" }
+            },
             {
                 .name          = "Award Modular BIOS v4.51PG - Revision 06/12/1998",
                 .internal_name = "r534f_1998",
@@ -2394,16 +2866,71 @@ machine_at_r534f_init(const machine_t *model)
 }
 
 /* SiS 5581 */
+static const device_config_t sp97xv_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "sp97xv",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 0109",
+                .internal_name = "sp97xv",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/sp97xv/SPXV0109.AWD", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 0109 (patch 5)",
+                .internal_name = "sp97xv_patch5",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/sp97xv/0109XVJ2.BIN", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t sp97xv_device = {
+    .name          = "ASUS SP97-XV",
+    .internal_name = "sp97xv",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = sp97xv_config
+};
+
 int
 machine_at_sp97xv_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/sp97xv/0109XVJ2.BIN",
-                           0x000e0000, 131072, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn  = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret = bios_load_linear(fn, 0x000e0000, 131072, 0);
+    device_context_restore();
 
     machine_at_common_init(model);
 
@@ -2451,16 +2978,71 @@ machine_at_sq578_init(const machine_t *model)
 }
 
 /* SiS 5591 */
+static const device_config_t ms5172_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "ms5172",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "AMIBIOS 6 (071595) - Revision 1.5",
+                .internal_name = "ms5172",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/ms5172/A572MS15.ROM", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 1.2",
+                .internal_name = "ms5172_451pg",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/ms5172/W572MS12.BIN", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t ms5172_device = {
+    .name          = "MSI MS-5172",
+    .internal_name = "ms5172",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = ms5172_config
+};
+
 int
 machine_at_ms5172_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/ms5172/A572MS15.ROM",
-                           0x000e0000, 131072, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn  = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret = bios_load_linear(fn, 0x000e0000, 131072, 0);
+    device_context_restore();
 
     machine_at_common_init(model);
 
@@ -2564,16 +3146,71 @@ machine_at_m5ata_init(const machine_t *model)
     return ret;
 }
 
+static const device_config_t ms5164_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "ms5164",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 4.2",
+                .internal_name = "ms5164",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/ms5164/W564MS42.bin", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 4.3B5",
+                .internal_name = "ms5164_43b5",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/ms5164/W564MS43.005", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t ms5164_device = {
+    .name          = "MSI MS-5164",
+    .internal_name = "ms5164",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = ms5164_config
+};
+
 int
 machine_at_ms5164_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/ms5164/W564MS43.005",
-                           0x000e0000, 131072, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn  = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret = bios_load_linear(fn, 0x000e0000, 131072, 0);
+    device_context_restore();
 
     machine_at_common_init(model);
 

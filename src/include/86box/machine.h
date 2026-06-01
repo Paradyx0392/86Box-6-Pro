@@ -1232,7 +1232,10 @@ extern int             machine_at_m560_init(const machine_t *);
 extern int             machine_at_p5a_init(const machine_t *);
 extern int             machine_at_m579_init(const machine_t *);
 extern int             machine_at_gwlucas_init(const machine_t *);
-extern int             machine_at_5aa_init(const machine_t *);
+#ifdef EMU_DEVICE_H
+extern const device_t  g5a_device;
+#endif
+extern int             machine_at_g5a_init(const machine_t *);
 #ifdef EMU_DEVICE_H
 extern const device_t  g5x_device;
 #endif
@@ -1310,6 +1313,9 @@ extern const device_t  como_device;
 extern int             machine_at_como_init(const machine_t *);
 
 /* i440BX */
+#ifdef EMU_DEVICE_H
+extern const device_t  bf6_device;
+#endif
 extern int             machine_at_bf6_init(const machine_t *);
 #ifdef EMU_DEVICE_H
 extern const device_t  bx6_device;
@@ -1419,6 +1425,7 @@ extern int             machine_at_ambx133_init(const machine_t *);
 extern const device_t  cubx_device;
 #endif
 extern int             machine_at_cubx_init(const machine_t *);
+extern int             machine_at_65eb_init(const machine_t *);
 
 /* i440ZX */
 extern int             machine_at_63a1_init(const machine_t *);

@@ -295,6 +295,15 @@ static const device_config_t lx6_config[] = {
         .selection      = { { 0 } },
         .bios           = {
             {
+                .name          = "Award Modular BIOS v4.51PG - Revision 7T",
+                .internal_name = "lx6_7t",
+                .bios_type     = BIOS_NORMAL, 
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/lx6/LX6C_7T.bin", "" }
+            },
+            {
                 .name          = "Award Modular BIOS v4.51PG - Revision LY",
                 .internal_name = "lx6",
                 .bios_type     = BIOS_NORMAL, 
@@ -482,6 +491,15 @@ static const device_config_t ms6117_config[] = {
                 .local         = 0,
                 .size          = 131072,
                 .files         = { "roms/machines/ms6117/A617C410.ROM", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 2.5",
+                .internal_name = "ms6117w25",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/ms6117/W617MS25.BIN", "" }
             },
             {
                 .name          = "Award Modular BIOS v4.51PG - Revision 3.2",
@@ -870,6 +888,15 @@ static const device_config_t bx6_config[] = {
                 .files         = { "roms/machines/bx6/BX6_JL.bin", "" }
             },
             {
+                .name          = "Award Modular BIOS v4.51PG - Revision MP",
+                .internal_name = "bx6_CW",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/bx6/BX6_MP.bin", "" }
+            },
+            {
                 .name          = "Award Modular BIOS v4.51PG - Revision QS",
                 .internal_name = "bx6_qs",
                 .bios_type     = BIOS_NORMAL,
@@ -934,16 +961,71 @@ machine_at_bx6_init(const machine_t *model)
     return ret;
 }
 
+static const device_config_t p2bls_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "p2bls",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 1012",
+                .internal_name = "p2bls",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 262144,
+                .files         = { "roms/machines/p2bls/1012ls.bin", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 1014 Beta 003",
+                .internal_name = "p2bls_1014b003",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 262144,
+                .files         = { "roms/machines/p2bls/1014ls.003", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t p2bls_device = {
+    .name          = "ASUS P2B-LS",
+    .internal_name = "p2bls",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = p2bls_config
+};
+
 int
 machine_at_p2bls_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/p2bls/1014ls.003",
-                           0x000c0000, 262144, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn  = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret = bios_load_linear(fn, 0x000c0000, 262144, 0);
+    device_context_restore();
 
     machine_at_common_init(model);
 
@@ -973,16 +1055,71 @@ machine_at_p2bls_init(const machine_t *model)
     return ret;
 }
 
+static const device_config_t p3bf_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "p3bf",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "Award Medallion BIOS v6.0 - Revision 1006",
+                .internal_name = "p3bf",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 262144,
+                .files         = { "roms/machines/p3bf/BX3F1007.bin", "" }
+            },
+            {
+                .name          = "Award Medallion BIOS v6.0 - Revision 1008 Beta 004",
+                .internal_name = "p3bf_1008b004",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 262144,
+                .files         = { "roms/machines/p3bf/1008f.004", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t p3bf_device = {
+    .name          = "ASUS P3B-F",
+    .internal_name = "p3bf",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = p3bf_config
+};
+
 int
 machine_at_p3bf_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/p3bf/1008f.004",
-                           0x000c0000, 262144, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn  = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret = bios_load_linear(fn, 0x000c0000, 262144, 0);
+    device_context_restore();
 
     machine_at_common_init(model);
 
@@ -1038,6 +1175,15 @@ static const device_config_t ax6bc_config[] = {
                 .local         = 0,
                 .size          = 262144,
                 .files         = { "roms/machines/ax6bc/ax6bc220.bin", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.60PGMA - Revision R2.55",
+                .internal_name = "ax6bc_rm",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 262144,
+                .files         = { "roms/machines/ax6bc/ax6bc255.bin", "" }
             },
             {
                 .name          = "Award Modular BIOS v4.60PGMA - Revision R2.59",
@@ -1256,6 +1402,15 @@ static const device_config_t ms6119_config[] = {
                 .files         = { "roms/machines/ms6119/vig69m.212", "" }
             },
             {
+                .name          = "Award Modular BIOS v4.51PG - Revision 3.20 (LG IBM Multinet x7G)",
+                .internal_name = "lgibmx7g",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 262144,
+                .files         = { "roms/machines/ms6119/61193V20.BIN", "" }
+            },
+            {
                 .name          = "Award Modular BIOS v4.51PG - Revision 3.30b1 (LG IBM Multinet x7G)",
                 .internal_name = "lgibmx7g",
                 .bios_type     = BIOS_NORMAL,
@@ -1414,6 +1569,47 @@ machine_at_ms6147_init(const machine_t *model)
     if (sound_card_current[0] == SOUND_INTERNAL) {
         device_add(machine_get_snd_device(machine));
         device_add(&ct1297_device);
+    }
+
+    return ret;
+}
+
+int
+machine_at_ms6163_init(const machine_t *model)
+{
+    int ret;
+
+    ret = bios_load_linear("roms/machines/ms6163/w6163imj.560",
+                           0x000c0000, 262144, 0);
+
+    if (bios_only || !ret)
+        return ret;
+
+    machine_at_common_init(model);
+
+    pci_init(PCI_CONFIG_TYPE_1);
+    pci_register_slot(0x00, PCI_CARD_NORTHBRIDGE, 0, 0, 0, 0);
+    pci_register_slot(0x07, PCI_CARD_SOUTHBRIDGE, 1, 2, 3, 4);
+    pci_register_slot(0x0C, PCI_CARD_SOUND,       3, 4, 1, 2);
+    pci_register_slot(0x0E, PCI_CARD_NORMAL,      1, 2, 3, 4);
+    pci_register_slot(0x10, PCI_CARD_NORMAL,      2, 3, 4, 1);
+    pci_register_slot(0x11, PCI_CARD_NORMAL,      4, 3, 2, 1);
+    pci_register_slot(0x12, PCI_CARD_NORMAL,      3, 4, 1, 2);
+    pci_register_slot(0x13, PCI_CARD_NORMAL,      4, 1, 2, 3);
+    pci_register_slot(0x14, PCI_CARD_NORMAL,      2, 1, 4, 3);
+    pci_register_slot(0x01, PCI_CARD_AGPBRIDGE,   1, 2, 3, 4);
+
+    device_add(&i440bx_device);
+    device_add(&piix4e_device);
+    device_add_params(&w83977_device, (void *) (W83977EF | W83977_AMI | W83977_NO_NVR));
+    device_add(&winbond_flash_w29c020_device);
+    spd_register(SPD_TYPE_SDRAM, 0x7, 256);
+    device_add(&w83782d_device); /* fans: Chassis, Power, CPU; temperatures: System, CPU, unused */
+    hwm_values.temperatures[2] = 0; /* unused */
+
+    if (sound_card_current[0] == SOUND_INTERNAL) {
+        device_add(machine_get_snd_device(machine));
+        device_add(&cs4297_device);
     }
 
     return ret;
@@ -1826,16 +2022,71 @@ machine_at_ficka6130_init(const machine_t *model)
 }
 
 /* VIA Apollo Pro 133 */
+static const device_config_t p3v133_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "p3v133",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "Award Medallion BIOS v6.0 - Revision 1002",
+                .internal_name = "p3v133",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 262144,
+                .files         = { "roms/machines/p3v133/p3v13302.awd", "" }
+            },
+            {
+                .name          = "Award Medallion BIOS v6.0 - Revision 1003 Beta 002",
+                .internal_name = "p3v133_1003b002",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 262144,
+                .files         = { "roms/machines/p3v133/1008f.004", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t p3v133_device = {
+    .name          = "ASUS P3V133",
+    .internal_name = "p3v133",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = p3v133_config
+};
+
 int
 machine_at_p3v133_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/p3v133/1003.002",
-                           0x000c0000, 262144, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn  = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret = bios_load_linear(fn, 0x000c0000, 262144, 0);
+    device_context_restore();
 
     machine_at_common_init(model);
 
@@ -1977,16 +2228,71 @@ machine_at_ms6199va_init(const machine_t *model)
 }
 
 /* VIA Apollo Pro 133A */
+static const device_config_t p3v4x_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "p3v4x",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "Award Medallion BIOS v6.0 - Revision 1005",
+                .internal_name = "p3v4x",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 262144,
+                .files         = { "roms/machines/p3v4x/p3v4x105.awd", "" }
+            },
+            {
+                .name          = "Award Medallion BIOS v6.0 - Revision 1006 Beta 004",
+                .internal_name = "p3v4x_1006b004",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 262144,
+                .files         = { "roms/machines/p3v4x/1006.004", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t p3v4x_device = {
+    .name          = "ASUS P3V4X",
+    .internal_name = "p3v4x",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = p3v4x_config
+};
+
 int
 machine_at_p3v4x_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/p3v4x/1006.004",
-                           0x000c0000, 262144, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn  = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret = bios_load_linear(fn, 0x000c0000, 262144, 0);
+    device_context_restore();
 
     machine_at_common_init(model);
 

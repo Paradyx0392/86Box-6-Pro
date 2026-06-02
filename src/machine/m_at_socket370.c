@@ -1536,10 +1536,6 @@ machine_at_ca64en_init(const machine_t *model)
     hwm_values.temperatures[1] += 2; /* System offset */
     hwm_values.temperatures[2] = 0;  /* unused */
 
-    if (sound_card_current[0] == SOUND_INTERNAL)
-        device_add(machine_get_snd_device(machine));
-        device_add(&cs4297_device); /* ES1373 */
-
     return ret;
 }
 

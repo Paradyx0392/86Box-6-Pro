@@ -1387,6 +1387,7 @@ extern int             machine_at_m6tlc_init(const machine_t *);
 extern int             machine_at_optiplexgxa_init(const machine_t *);
 extern int             machine_at_spitfire_init(const machine_t *);
 extern int             machine_at_prm0076i_init(const machine_t *);
+extern int             machine_at_p6lxaplus_init(const machine_t *);
 #ifdef EMU_DEVICE_H
 extern const device_t  ficvl601_device;
 #endif
@@ -1474,6 +1475,10 @@ extern int             machine_at_ms6119_init(const machine_t *);
 extern const device_t  ms6147_device;
 #endif
 extern int             machine_at_ms6147_init(const machine_t *);
+#ifdef EMU_DEVICE_H
+extern const device_t  ms6156_device;
+#endif
+extern int             machine_at_ms6156_init(const machine_t *);
 extern int             machine_at_ms6163_init(const machine_t *);
 extern int             machine_at_r657e_init(const machine_t *);
 #ifdef EMU_DEVICE_H

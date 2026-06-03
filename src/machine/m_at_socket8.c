@@ -274,7 +274,7 @@ machine_at_8600ttc_init(const machine_t *model)
 }
 
 int
-machine_at_686fx_init(const machine_t *model)
+machine_at_ga686fx_init(const machine_t *model)
 {
     int ret;
 

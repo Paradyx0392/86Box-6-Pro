@@ -97,6 +97,15 @@ static const device_config_t p55t2p4_config[] = {
                 .files         = { "roms/machines/p55t2p4/T25I0207.AWD", "" }
             },
             {
+                .name          = "Award Modular BIOS v4.51PG - Revision 0207-2 (Beta)",
+                .internal_name = "p55t2p4_beta",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/p55t2p4/0207.002", "" }
+            },
+            {
                 .name          = "Award Modular BIOS v4.51PG - Revision 0207-2 (Beta and Patch)",
                 .internal_name = "p55t2p4_beta2",
                 .bios_type     = BIOS_NORMAL,

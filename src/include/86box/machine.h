@@ -812,6 +812,9 @@ extern int             machine_at_ms4134_init(const machine_t *);
 extern int             machine_at_tg486gp_init(const machine_t *);
 
 /* ALi M1489 */
+#ifdef EMU_DEVICE_H
+extern const device_t  sbc490_device;
+#endif
 extern int             machine_at_sbc490_init(const machine_t *);
 #ifdef EMU_DEVICE_H
 extern const device_t  abpb4_device;
@@ -819,6 +822,9 @@ extern const device_t  abpb4_device;
 extern int             machine_at_abpb4_init(const machine_t *);
 extern int             machine_at_arb1476_init(const machine_t *);
 extern int             machine_at_tf486_init(const machine_t *);
+#ifdef EMU_DEVICE_H
+extern const device_t  ms4145_device;
+#endif
 extern int             machine_at_ms4145_init(const machine_t *);
 extern int             machine_at_win486pci_init(const machine_t *);
 
@@ -862,6 +868,9 @@ extern int             machine_at_486sp3c_init(const machine_t *);
 extern int             machine_at_ls486e_init(const machine_t *);
 extern int             machine_at_m4li_init(const machine_t *);
 extern int             machine_at_ms4144_init(const machine_t *);
+#ifdef EMU_DEVICE_H
+extern const device_t  r418_device;
+#endif
 extern int             machine_at_r418_init(const machine_t *);
 extern int             machine_at_4saw2_init(const machine_t *);
 extern int             machine_at_4dps_init(const machine_t *);
@@ -1054,6 +1063,9 @@ extern int             machine_at_fmb_init(const machine_t *);
 
 /* i430HX */
 extern int             machine_at_acerv35n_init(const machine_t *);
+#ifdef EMU_DEVICE_H
+extern const device_t  ap53_device;
+#endif
 extern int             machine_at_ap53_init(const machine_t *);
 extern int             machine_at_8500tuc_init(const machine_t *);
 #ifdef EMU_DEVICE_H
@@ -1588,9 +1600,6 @@ extern const device_t  cuv4xls_device;
 extern int             machine_at_cuv4xls_init(const machine_t *);
 extern int             machine_at_gt694vp_init(const machine_t *);
 extern int             machine_at_ca64en_init(const machine_t *);
-#ifdef EMU_DEVICE_H
-extern const device_t  p6vap_device;
-#endif
 extern int             machine_at_p6vap_init(const machine_t *);
 #ifdef EMU_DEVICE_H
 extern const device_t  m6vcg_device;

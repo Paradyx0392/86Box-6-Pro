@@ -1126,6 +1126,7 @@ extern const device_t  lgibmx52_device;
 #endif
 extern int             machine_at_lgibmx52_init(const machine_t *);
 extern int             machine_at_pb680_init(const machine_t *);
+extern int             machine_at_pb770_init(const machine_t *);
 extern int             machine_at_pb810_init(const machine_t *);
 extern int             machine_at_mb520n_init(const machine_t *);
 extern int             machine_at_i430vx_init(const machine_t *);
@@ -1156,6 +1157,9 @@ extern const device_t  ms5156_device;
 #endif
 extern int             machine_at_ms5156_init(const machine_t *);
 extern int             machine_at_ma23c_init(const machine_t *);
+#ifdef EMU_DEVICE_H
+extern const device_t  mb540n_device;
+#endif
 extern int             machine_at_mb540n_init(const machine_t *);
 extern int             machine_at_56a5_init(const machine_t *);
 extern int             machine_at_p5mms98_init(const machine_t *);

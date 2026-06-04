@@ -1300,6 +1300,35 @@ machine_at_pb680_init(const machine_t *model)
 }
 
 int
+machine_at_pb770_init(const machine_t *model)
+{
+    int ret;
+
+    ret = bios_load_linear("roms/machines/pb770/A013A00H.ROM",
+                           0x000c0000, 262144, 0);
+
+    if (bios_only || !ret)
+        return ret;
+
+    machine_at_common_init(model);
+
+    pci_init(PCI_CONFIG_TYPE_1);
+    pci_register_slot(0x07, PCI_CARD_SOUTHBRIDGE, 0, 0, 0, 0);
+    pci_register_slot(0x08, PCI_CARD_VIDEO,       4, 0, 0, 0);
+    pci_register_slot(0x11, PCI_CARD_NORMAL,      1, 2, 3, 4);
+    pci_register_slot(0x13, PCI_CARD_NORMAL,      2, 3, 4, 1);
+    pci_register_slot(0x0B, PCI_CARD_NORMAL,      3, 4, 1, 2);
+    pci_register_slot(0x00, PCI_CARD_NORTHBRIDGE, 0, 0, 0, 0);
+
+    device_add(&i430vx_device);
+    device_add(&piix3_device);
+    device_add_params(&fdc37c93x_device, (void *) (FDC37XXX5 | FDC37C93X_NORMAL | FDC37XXXX_370));
+    device_add(&sst_flash_29ee020_device);
+
+    return ret;
+}
+
+int
 machine_at_pb810_init(const machine_t *model)
 {
     int ret;
@@ -2109,16 +2138,71 @@ machine_at_an430tx_init(const machine_t *model)
     return ret;
 }
 
+static const device_config_t mb540n_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "mb540n",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 07/20/1998",
+                .internal_name = "mb540n",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/mb540n/tx0720ug.bin", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.51PG - Release 4.2 (by eSupport)",
+                .internal_name = "mb540n_esupport",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/mb540n/2a59iv3e.bin", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t mb540n_device = {
+    .name          = "PC Partner MB540N",
+    .internal_name = "mb540n",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = mb540n_config
+};
+
 int
 machine_at_mb540n_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/mb540n/Tx0720ug.bin",
-                           0x000e0000, 131072, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn  = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret = bios_load_linear(fn, 0x000e0000, 131072, 0);
+    device_context_restore();
 
     machine_at_common_init(model);
 

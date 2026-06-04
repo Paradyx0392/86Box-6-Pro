@@ -1185,6 +1185,9 @@ extern int             machine_at_sp97xv_init(const machine_t *);
 extern int             machine_at_sq578_init(const machine_t *);
 
 /* SiS 5591 */
+#ifdef EMU_DEVICE_H
+extern const device_t  ms5172_device;
+#endif
 extern int             machine_at_ms5172_init(const machine_t *);
 
 /* ALi ALADDiN IV+ */
@@ -1192,6 +1195,9 @@ extern int             machine_at_ms5172_init(const machine_t *);
 extern const device_t  m5ata_device;
 #endif
 extern int             machine_at_m5ata_init(const machine_t *);
+#ifdef EMU_DEVICE_H
+extern const device_t  ms5164_device;
+#endif
 extern int             machine_at_ms5164_init(const machine_t *);
 extern int             machine_at_m560_init(const machine_t *);
 

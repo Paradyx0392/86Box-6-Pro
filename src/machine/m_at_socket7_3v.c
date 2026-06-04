@@ -894,15 +894,6 @@ static const device_config_t ms5119_config[] = {
                 .files         = { "roms/machines/ms5119/A37EB.ROM", "" }
             },
             {
-                .name          = "AMIBIOS 6 (071595) - Revision W374",
-                .internal_name = "ms5119_451pgw374",
-                .bios_type     = BIOS_NORMAL,
-                .files_no      = 1,
-                .local         = 0,
-                .size          = 131072,
-                .files         = { "roms/machines/ms5119/W374.BIN", "" }
-            },
-            {
                 .name          = "Award Modular BIOS v4.51PG - Release 2.3 (by Rainbow)",
                 .internal_name = "ms5119_451pg",
                 .bios_type     = BIOS_NORMAL,

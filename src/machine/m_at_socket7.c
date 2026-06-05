@@ -2528,7 +2528,7 @@ static const device_config_t via809ds_config[] = {
                 .files_no      = 1,
                 .local         = 0,
                 .size          = 131072,
-                .files         = { "roms/machines/via809ds/v30422sg.bin", "" }
+                .files         = { "roms/machines/via809ds/v30422sg.rom", "" }
             },
             {
                 .name          = "Award Modular BIOS v4.51PG - Revision 05/06/1998",

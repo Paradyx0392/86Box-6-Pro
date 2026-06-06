@@ -1681,16 +1681,71 @@ machine_at_hot433a_init(const machine_t *model)
 }
 
 /* VIA VT82C496G */
+static const device_config_t g486vpa_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "g486vpa",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "Award Modular BIOS v4.50GP - Revision 03",
+                .internal_name = "g486vpa_450gp",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/g486vpa/3.BIN", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.50PG - Revision E5",
+                .internal_name = "g486vpa",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/g486vpa/E5.BIN", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t g486vpa_device = {
+    .name          = "DFI G486VPA",
+    .internal_name = "g486vpa",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = g486vpa_config
+};
+
 int
 machine_at_g486vpa_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/g486vpa/3.BIN",
-                           0x000e0000, 131072, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn           = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret          = bios_load_linear(fn, 0x000e0000, 131072, 0);
+    device_context_restore();
 
     machine_at_common_init(model);
 

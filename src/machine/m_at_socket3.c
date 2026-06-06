@@ -359,16 +359,70 @@ machine_at_win471_init(const machine_t *model)
     return ret;
 }
 
+static const device_config_t win471t_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "win471t",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "AMI WinBIOS (072594)",
+                .internal_name = "win471t",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 65536,
+                .files         = { "roms/machines/win471t/486-SiS_AB6680759.BIN", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.50G",
+                .internal_name = "win471t_450g",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 65536,
+                .files         = { "roms/machines/win471t/ah4-02.bin", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t win471t_device = {
+    .name          = "ABIT AB-AH4T",
+    .internal_name = "win471t",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = win471t_config
+};
+
 int
 machine_at_win471t_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/win471t/486-SiS_AB6680759.BIN",
-                           0x000f0000, 65536, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn           = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret          = bios_load_linear(fn, 0x000f0000, 65536, 0);
 
     machine_at_sis_85c471_common_init(model);
 

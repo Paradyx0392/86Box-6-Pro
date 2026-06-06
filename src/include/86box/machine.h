@@ -822,6 +822,9 @@ extern int             machine_at_tg486gp_init(const machine_t *);
 
 /* ALi M1489 */
 extern int             machine_at_sbc490_init(const machine_t *);
+#ifdef EMU_DEVICE_H
+extern const device_t  abpb4_device;
+#endif
 extern int             machine_at_abpb4_init(const machine_t *);
 extern int             machine_at_arb1476_init(const machine_t *);
 extern int             machine_at_tf486_init(const machine_t *);

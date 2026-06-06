@@ -853,7 +853,10 @@ extern int             machine_at_486sp3_init(const machine_t *);
 extern int             machine_at_alfredo_init(const machine_t *);
 
 /* i420ZX */
-extern int             machine_at_486sp3g_init(const machine_t *);
+#ifdef EMU_DEVICE_H
+extern const device_t  asi486s_device;
+#endif
+extern int             machine_at_asi486s_init(const machine_t *);
 #ifdef EMU_DEVICE_H
 extern const device_t  sb486pv_device;
 #endif

@@ -2022,6 +2022,15 @@ static const device_config_t ms6147_config[] = {
                 .files         = { "roms/machines/ms6147/W647P214.PBC", "" }
             },
             {
+                .name          = "Award Modular BIOS v4.51PG - Revision 1.7",
+                .internal_name = "ms6147_17",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 262144,
+                .files         = { "roms/machines/ms6147/W647MS17.BIN", "" }
+            },
+            {
                 .name          = "Award Modular BIOS v4.51PG - Revision 1.8",
                 .internal_name = "ms6147",
                 .bios_type     = BIOS_NORMAL,

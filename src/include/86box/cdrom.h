@@ -157,7 +157,7 @@ static const struct cdrom_drive_types_s {
      */
     { "LG",       "CD-ROM CRN-8245B",  "1.30", "lg_8245b",       BUS_TYPE_IDE,  0, 24, 36, 0, 0, {  4,  2,  2, -1 } },
     { "LG",       "CD-ROM CRD-8322B",  "1.06", "lg_8322b",       BUS_TYPE_IDE,  0, 32, 36, 0, 0, {  4,  2,  2, -1 } },
-    { "LG",       "CD-ROM CRD-8522B",  "2.03", "lg_8522b",       BUS_TYPE_IDE,  0, 52, 36, 0, 0, {  4,  2,  2, -1 } },
+    { "LG",       "CD-ROM CRD-8522B",  "1.02", "lg_8522b",       BUS_TYPE_IDE,  0, 52, 36, 0, 0, {  4,  2,  2, -1 } },
     { "LG",       "DVD-ROM DRD-8160B", "1.01", "lg_drd8160b",    BUS_TYPE_IDE,  0, 16, 36, 0, 0, {  4,  2,  2,  2 } },
     /* Nothing on Google, deduced 48x from the name. */
     { "LITE-ON",  "LTN48125S",         "1S07", "liteon_48125s",  BUS_TYPE_IDE,  0, 48, 36, 0, 0, {  4,  2,  2,  2 } },

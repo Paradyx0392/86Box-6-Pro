@@ -23900,21 +23900,21 @@ const machine_t machines[] = {
             .max_bus     = 133333333,
             .min_voltage = 1300,
             .max_voltage = 3500,
-            .min_multi   = 1.5,
-            .max_multi   = 8.0
+            .min_multi   = MACHINE_MULTIPLIER_FIXED,
+            .max_multi   = MACHINE_MULTIPLIER_FIXED
         },
-        .bus_flags = MACHINE_PS2_AGP | MACHINE_BUS_USB,
+        .bus_flags = MACHINE_PS2_A97 | MACHINE_BUS_USB,
         .flags     = MACHINE_IDE_DUAL | MACHINE_SOUND | MACHINE_APM | MACHINE_ACPI | MACHINE_GAMEPORT | MACHINE_USB, /* Machine has internal sound: Ensoniq ES1373 */
         .ram       = {
-            .min  = 8192,
+            .min  = 16384,
             .max  = 3145728,
             .step = 8192
         },
         .nvrmask                  = 255,
         .jumpered_ecp_dma         = 0,
         .default_jumpered_ecp_dma = -1,
-        .kbc_device               = &kbc_at_device,
-        .kbc_params               = KBC_VEN_AMI | 0x00004800,
+        .kbc_device               = NULL,
+        .kbc_params               = 0x00000000,
         .nvr_device               = NULL,
         .nvr_params               = 0x00000000,
         .sio_device               = NULL,
@@ -24001,7 +24001,7 @@ const machine_t machines[] = {
             .min_multi   = 1.5,
             .max_multi   = 8.0
         },
-        .bus_flags = MACHINE_PS2_AGP | MACHINE_BUS_USB,
+        .bus_flags = MACHINE_PS2_A97 | MACHINE_BUS_USB,
         .flags     = MACHINE_IDE_DUAL | MACHINE_APM | MACHINE_ACPI | MACHINE_GAMEPORT | MACHINE_USB | MACHINE_SOUND,
         .ram       = {
             .min  = 8192,
@@ -24050,7 +24050,7 @@ const machine_t machines[] = {
             .min_multi   = MACHINE_MULTIPLIER_FIXED,
             .max_multi   = MACHINE_MULTIPLIER_FIXED
         },
-        .bus_flags = MACHINE_PS2_AGP | MACHINE_BUS_USB,
+        .bus_flags = MACHINE_PS2_A97 | MACHINE_BUS_USB,
         .flags     = MACHINE_IDE_DUAL | MACHINE_APM | MACHINE_ACPI | MACHINE_GAMEPORT | MACHINE_USB | MACHINE_SOUND,
         .ram       = {
             .min  = 8192,

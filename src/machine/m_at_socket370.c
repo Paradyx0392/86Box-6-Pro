@@ -840,11 +840,11 @@ machine_at_cuv4xls_init(const machine_t *model)
 }
 
 int
-machine_at_gt694vp_init(const machine_t *model)
+machine_at_qs694vp_init(const machine_t *model)
 {
     int ret;
 
-    ret = bios_load_linear("roms/machines/gt694vp/21211102.bin",
+    ret = bios_load_linear("roms/machines/qs694vp/10033104.bin",
                            0x000c0000, 262144, 0);
 
     if (bios_only || !ret)
@@ -855,9 +855,11 @@ machine_at_gt694vp_init(const machine_t *model)
     pci_init(PCI_CONFIG_TYPE_1);
     pci_register_slot(0x00, PCI_CARD_NORTHBRIDGE, 0, 0, 0, 0);
     pci_register_slot(0x07, PCI_CARD_SOUTHBRIDGE, 1, 2, 3, 4);
+    pci_register_slot(0x0B, PCI_CARD_NORMAL,      4, 1, 2, 3);
     pci_register_slot(0x0D, PCI_CARD_SOUND,       4, 1, 2, 3); /* assumed */
     pci_register_slot(0x0F, PCI_CARD_NORMAL,      3, 4, 1, 2);
     pci_register_slot(0x11, PCI_CARD_NORMAL,      2, 3, 4, 1);
+    pci_register_slot(0x13, PCI_CARD_NORMAL,      1, 2, 3, 4);
     pci_register_slot(0x01, PCI_CARD_AGPBRIDGE,   1, 2, 3, 4);
 
     device_add(&via_apro133a_device);
@@ -869,10 +871,8 @@ machine_at_gt694vp_init(const machine_t *model)
     hwm_values.temperatures[1] += 2; /* System offset */
     hwm_values.temperatures[2] = 0;  /* unused */
 
-    if (sound_card_current[0] == SOUND_INTERNAL) {
+    if (sound_card_current[0] == SOUND_INTERNAL)
         device_add(machine_get_snd_device(machine));
-        device_add(&cs4297_device); /* no good pictures, but the marking looks like CS4297 from a distance */
-    }
 
     return ret;
 }
@@ -1103,11 +1103,11 @@ static const device_config_t ms6318_config[] = {
 };
 
 int
-machine_at_j694cs_init(const machine_t *model)
+machine_at_j694as_init(const machine_t *model)
 {
     int ret;
 
-    ret = bios_load_linear("roms/machines/j694cs/694CSA11.BIN",
+    ret = bios_load_linear("roms/machines/j694as/694ASA15.BIN",
                            0x000c0000, 262144, 0);
 
     if (bios_only || !ret)
@@ -1120,6 +1120,9 @@ machine_at_j694cs_init(const machine_t *model)
     pci_register_slot(0x07, PCI_CARD_SOUTHBRIDGE, 1, 2, 3, 4);
     pci_register_slot(0x08, PCI_CARD_NORMAL,      1, 2, 3, 4);
     pci_register_slot(0x09, PCI_CARD_NORMAL,      2, 3, 4, 1);
+    pci_register_slot(0x0A, PCI_CARD_NORMAL,      3, 4, 1, 2);
+    pci_register_slot(0x0B, PCI_CARD_NORMAL,      4, 1, 2, 3);
+    pci_register_slot(0x0C, PCI_CARD_NORMAL,      1, 2, 3, 4);
     pci_register_slot(0x01, PCI_CARD_AGPBRIDGE,   1, 2, 3, 4);
 
     device_add(&via_apro133a_device);
@@ -1133,7 +1136,6 @@ machine_at_j694cs_init(const machine_t *model)
 
     if (sound_card_current[0] == SOUND_INTERNAL)
         device_add(machine_get_snd_device(machine));
-        device_add(&cs4297_device); /* ES1373 */
 
     return ret;
 }

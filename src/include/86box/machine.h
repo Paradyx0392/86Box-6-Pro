@@ -1519,7 +1519,7 @@ extern int             machine_at_cuv4xcm_init(const machine_t *);
 extern const device_t  cuv4xls_device;
 #endif
 extern int             machine_at_cuv4xls_init(const machine_t *);
-extern int             machine_at_gt694vp_init(const machine_t *);
+extern int             machine_at_qs694vp_init(const machine_t *);
 #ifdef EMU_DEVICE_H
 extern const device_t  m6vcg_device;
 #endif
@@ -1528,7 +1528,7 @@ extern int             machine_at_p6vap_init(const machine_t *);
 #ifdef EMU_DEVICE_H
 extern const device_t  ms6318_device;
 #endif
-extern int             machine_at_j694cs_init(const machine_t *);
+extern int             machine_at_j694as_init(const machine_t *);
 extern int             machine_at_ms6318_init(const machine_t *);
 extern int             machine_at_cairo5_init(const machine_t *);
 

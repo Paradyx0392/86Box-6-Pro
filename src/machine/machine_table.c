@@ -23884,11 +23884,11 @@ const machine_t machines[] = {
     /* Has a Winbond W83977EF Super I/O chip with on-chip KBC with AMIKey-2 KBC
        firmware. */
     {
-        .name              = "[VIA Apollo Pro 133A] BCM GT694VP",
-        .internal_name     = "gt694vp",
+        .name              = "[VIA Apollo Pro 133A] BCM QS694VP",
+        .internal_name     = "qs694vp",
         .type              = MACHINE_TYPE_SOCKET370,
         .chipset           = MACHINE_CHIPSET_VIA_APOLLO_PRO_133A,
-        .init              = machine_at_gt694vp_init,
+        .init              = machine_at_qs694vp_init,
         .p1_handler        = machine_generic_p1_handler,
         .gpio_handler      = NULL,
         .available_flag    = MACHINE_AVAILABLE,
@@ -23897,7 +23897,7 @@ const machine_t machines[] = {
             .package     = CPU_PKG_SOCKET370,
             .block       = CPU_BLOCK_NONE,
             .min_bus     = 66666667,
-            .max_bus     = 133333333,
+            .max_bus     = 150000000,
             .min_voltage = 1300,
             .max_voltage = 3500,
             .min_multi   = MACHINE_MULTIPLIER_FIXED,
@@ -23906,7 +23906,7 @@ const machine_t machines[] = {
         .bus_flags = MACHINE_PS2_A97 | MACHINE_BUS_USB,
         .flags     = MACHINE_IDE_DUAL | MACHINE_SOUND | MACHINE_APM | MACHINE_ACPI | MACHINE_GAMEPORT | MACHINE_USB, /* Machine has internal sound: Ensoniq ES1373 */
         .ram       = {
-            .min  = 16384,
+            .min  = 8192,
             .max  = 3145728,
             .step = 8192
         },
@@ -23926,9 +23926,9 @@ const machine_t machines[] = {
         .kbd_device               = NULL,
         .fdc_device               = NULL,
         .vid_device               = NULL,
-        .snd_device               = &es1373_onboard_device,
+        .snd_device               = &ct5880_onboard_device,
         .net_device               = NULL,
-        .aliases                  = { "GVC MR803", "" }
+        .aliases                  = { "GVC MR804", "" }
     },
     /* Has the VIA VT82C686A southbridge with on-chip KBC identical to the VIA
        VT82C42N. */
@@ -24031,11 +24031,11 @@ const machine_t machines[] = {
     /* Has the VIA VT82C686B southbridge with on-chip KBC identical to the VIA
        VT82C42N. */
     {
-        .name              = "[VIA Apollo Pro 133A] Jetway J-694CS",
-        .internal_name     = "j694cs",
+        .name              = "[VIA Apollo Pro 133A] Jetway J-694AS",
+        .internal_name     = "j694as",
         .type              = MACHINE_TYPE_SOCKET370,
         .chipset           = MACHINE_CHIPSET_VIA_APOLLO_PRO_133A,
-        .init              = machine_at_j694cs_init,
+        .init              = machine_at_j694as_init,
         .p1_handler        = machine_generic_p1_handler,
         .gpio_handler      = NULL,
         .available_flag    = MACHINE_AVAILABLE,
@@ -24073,9 +24073,9 @@ const machine_t machines[] = {
         .kbd_device               = NULL,
         .fdc_device               = NULL,
         .vid_device               = NULL,
-        .snd_device               = &es1373_onboard_device,
+        .snd_device               = &alc100_device,
         .net_device               = NULL,
-        .aliases                  = { "" }
+        .aliases                  = { "Mach Speed Mach 694 AS", "Bona/Lex BN694", "" }
     },
     /* Has the VIA VT82C686B southbridge with on-chip KBC identical to the VIA
        VT82C42N. */

@@ -578,7 +578,7 @@ static const device_config_t morrison32_config[] = {
                 .files         = { "roms/machines/morrison32/1009BT0_.BIO", "roms/machines/morrison32/1009BT0_.BI1", "" }
             },
             {
-                .name          = "Intel AMIBIOS - Revision 1.00.11.BT0L (Zenith Data Systems Z-Station GT)",
+                .name          = "Intel AMIBIOS - Revision 1.00.09.BT0U (Zenith Data Systems Z-Station GT)",
                 .internal_name = "morrison32_zds",
                 .bios_type     = BIOS_NORMAL,
                 .files_no      = 2,

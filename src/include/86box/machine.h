@@ -1061,19 +1061,24 @@ extern const device_t vectra52_device;
 extern int             machine_at_vectra52_init(const machine_t *);
 extern int             machine_at_vectra500mt_init(const machine_t *);
 extern int             machine_at_vectra54_init(const machine_t *);
+#ifdef EMU_DEVICE_H
+extern const device_t  atlantis_device;
+#endif
 extern int             machine_at_atlantis_init(const machine_t *);
 #ifdef EMU_DEVICE_H
 extern const device_t  thor_device;
 #endif
 extern int             machine_at_thor_init(const machine_t *);
 extern uint32_t        machine_at_monaco_gpio_handler(uint8_t write, uint32_t val);
-extern int             machine_at_monaco_init(const machine_t *);
-extern uint32_t        machine_at_endeavor_gpio_handler(uint8_t write, uint32_t val);
-extern int             machine_at_endeavor_init(const machine_t *);
 #ifdef EMU_DEVICE_H
 extern const device_t  monaco_device;
 #endif
 extern int             machine_at_monaco_init(const machine_t *);
+extern uint32_t        machine_at_endeavor_gpio_handler(uint8_t write, uint32_t val);
+#ifdef EMU_DEVICE_H
+extern const device_t  endeavor_device;
+#endif
+extern int             machine_at_endeavor_init(const machine_t *);
 #ifdef EMU_DEVICE_H
 extern const device_t  ms5119_device;
 #endif
@@ -1173,6 +1178,9 @@ extern int             machine_at_brio80xx_init(const machine_t *);
 extern const device_t  lgibmx52_device;
 #endif
 extern int             machine_at_lgibmx52_init(const machine_t *);
+#ifdef EMU_DEVICE_H
+extern const device_t  pb680_device;
+#endif
 extern int             machine_at_pb680_init(const machine_t *);
 extern int             machine_at_pb770_init(const machine_t *);
 #ifdef EMU_DEVICE_H

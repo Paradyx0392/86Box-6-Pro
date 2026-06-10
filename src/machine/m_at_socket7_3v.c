@@ -496,17 +496,79 @@ machine_at_atlantis_gpio_init(void)
     machine_set_gpio_default(gpio);
 }
 
+static const device_config_t atlantis_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "atlantis",
+        .default_int    = 0,
+        .file_filter    = "",
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "Intel AMIBIOS - Revision 1.00.07.CL0",
+                .internal_name = "atlantis",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 2,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/atlantis/1007cl0_.bio", "roms/machines/atlantis/1007cl0_.bi1", "" }
+            },
+            {
+                .name          = "MR BIOS V3.30",
+                .internal_name = "mratlantis",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/atlantis/mr_atlan.bio", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t thor_device = {
+    .name          = "Intel Advanced/AS",
+    .internal_name = "atlantis",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = atlantis_config
+};
+
 int
 machine_at_atlantis_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
+    const char *fn2;
 
-    ret = bios_load_linear_combined("roms/machines/atlantis/1007CL0_.BIO",
-                                    "roms/machines/atlantis/1007CL0_.BI1",
-                                    0x20000, 128);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    int is_mr     = !strcmp(device_get_config_bios("bios"), "mratlantis");
+    int has_video = !strcmp(device_get_config_bios("bios"), "atlantis");
+    fn            = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    if (is_mr)
+        ret = bios_load_linear(fn, 0x000e0000, 131072, 0);
+    else {
+        fn2 = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 1);
+        ret = bios_load_linear_combined(fn, fn2, 0x20000, 128);
+    }
+    device_context_restore();
 
     machine_at_common_init(model);
     machine_at_atlantis_gpio_init();
@@ -520,10 +582,10 @@ machine_at_atlantis_init(const machine_t *model)
     pci_register_slot(0x0F, PCI_CARD_NORMAL,      3, 4, 1, 2);
     pci_register_slot(0x10, PCI_CARD_NORMAL,      4, 1, 2, 3);
 
-    if (gfxcard[0] == VID_INTERNAL)
+    if (has_video && (gfxcard[0] == VID_INTERNAL))
         device_add(machine_get_vid_device(machine));
 
-    if (sound_card_current[0] == SOUND_INTERNAL)
+    if (has_video && (sound_card_current[0] == SOUND_INTERNAL))
         machine_snd = device_add(machine_get_snd_device(machine));
 
     device_add(&i430fx_device);
@@ -691,6 +753,57 @@ machine_at_thor_init(const machine_t *model)
     return ret;
 }
 
+static const device_config_t endeavor_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "endeavor",
+        .default_int    = 0,
+        .file_filter    = "",
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "Intel AMIBIOS - Revision 1.00.06.CB0",
+                .internal_name = "endeavor",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 2,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/endeavor/1006cb0_.bio", "roms/machines/endeavor/1006cb0_.bi1", "" }
+            },
+            {
+                .name          = "MR BIOS V3.30",
+                .internal_name = "mrendeavor",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/endeavor/mr_endvr.bio", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t thor_device = {
+    .name          = "Intel Advanced/EV",
+    .internal_name = "endeavor",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = endeavor_config
+};
+
 static void
 machine_at_endeavor_gpio_init(void)
 {
@@ -781,14 +894,25 @@ machine_at_endeavor_gpio_handler(uint8_t write, uint32_t val)
 int
 machine_at_endeavor_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
+    const char *fn2;
 
-    ret = bios_load_linear_combined("roms/machines/endeavor/1006cb0_.bio",
-                                    "roms/machines/endeavor/1006cb0_.bi1",
-                                    0x1d000, 128);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    int is_mr     = !strcmp(device_get_config_bios("bios"), "mrendeavor");
+    int has_video = !strcmp(device_get_config_bios("bios"), "endeavor");
+    fn            = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    if (is_mr)
+        ret = bios_load_linear(fn, 0x000e0000, 131072, 0);
+    else {
+        fn2 = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 1);
+        ret = bios_load_linear_combined(fn, fn2, 0x1d000, 128);
+    }
+    device_context_restore();
 
     machine_at_common_init(model);
     machine_at_endeavor_gpio_init();
@@ -802,10 +926,10 @@ machine_at_endeavor_init(const machine_t *model)
     pci_register_slot(0x10, PCI_CARD_NORMAL,      4, 1, 2, 3);
     pci_register_slot(0x07, PCI_CARD_SOUTHBRIDGE, 0, 0, 0, 0);
 
-    if (gfxcard[0] == VID_INTERNAL)
+    if (has_video && (gfxcard[0] == VID_INTERNAL))
         device_add(machine_get_vid_device(machine));
 
-    if (sound_card_current[0] == SOUND_INTERNAL)
+    if (has_video && (sound_card_current[0] == SOUND_INTERNAL))
         machine_snd = device_add(machine_get_snd_device(machine));
 
     device_add(&i430fx_device);

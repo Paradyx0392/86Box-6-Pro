@@ -1337,16 +1337,71 @@ machine_at_pb770_init(const machine_t *model)
     return ret;
 }
 
+static const device_config_t pb810_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "pb810",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "NEC Revision 1.25I",
+                .internal_name = "pb810_nec",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/pb810/NECV125I.BIN", "" }
+            },
+            {
+                .name          = "Packard Bell Revision 1.25I",
+                .internal_name = "pb810",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/pb810/G400125I.BIN", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t pb810_device = {
+    .name          = "Packard Bell PB810",
+    .internal_name = "pb810",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = pb810_config
+};
+
 int
 machine_at_pb810_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/pb810/G400125I.BIN",
-                           0x000e0000, 131072, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn  = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret = bios_load_linear(fn, 0x000e0000, 131072, 0);
+    device_context_restore();
 
     machine_at_common_init(model);
 
@@ -2822,7 +2877,7 @@ static const device_config_t sp97xv_config[] = {
         .selection      = { { 0 } },
         .bios           = {
             {
-                .name          = "Award Modular BIOS v4.51PG - Revision 0109",
+                .name          = "Award Modular BIOS v4.51PG - Revision 0109xv",
                 .internal_name = "sp97xv",
                 .bios_type     = BIOS_NORMAL,
                 .files_no      = 1,
@@ -2831,7 +2886,7 @@ static const device_config_t sp97xv_config[] = {
                 .files         = { "roms/machines/sp97xv/SPXV0109.AWD", "" }
             },
             {
-                .name          = "Award Modular BIOS v4.51PG - Revision 0109 (patch 5)",
+                .name          = "Award Modular BIOS v4.51PG - Revision 0109xv-5 (patched)",
                 .internal_name = "sp97xv_patch5",
                 .bios_type     = BIOS_NORMAL,
                 .files_no      = 1,
@@ -2934,7 +2989,7 @@ static const device_config_t sp98agpx_config[] = {
         .selection      = { { 0 } },
         .bios           = {
             {
-                .name          = "Award Modular BIOS v4.51PG - Revision 0103",
+                .name          = "Award Modular BIOS v4.51PG - Revision 0103xl",
                 .internal_name = "sp98agpx",
                 .bios_type     = BIOS_NORMAL,
                 .files_no      = 1,
@@ -2943,7 +2998,7 @@ static const device_config_t sp98agpx_config[] = {
                 .files         = { "roms/machines/sp98agpx/S91XL103.AWD", "" }
             },
             {
-                .name          = "Award Modular BIOS v4.51PG - Revision 0104 (patch)",
+                .name          = "Award Modular BIOS v4.51PG - Revision 0104xl-1 (patched)",
                 .internal_name = "sp98agpx_patch",
                 .bios_type     = BIOS_NORMAL,
                 .files_no      = 1,

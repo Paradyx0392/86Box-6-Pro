@@ -1172,6 +1172,9 @@ extern const device_t  lgibmx52_device;
 extern int             machine_at_lgibmx52_init(const machine_t *);
 extern int             machine_at_pb680_init(const machine_t *);
 extern int             machine_at_pb770_init(const machine_t *);
+#ifdef EMU_DEVICE_H
+extern const device_t  pb810_device;
+#endif
 extern int             machine_at_pb810_init(const machine_t *);
 extern int             machine_at_mb520n_init(const machine_t *);
 extern int             machine_at_i430vx_init(const machine_t *);

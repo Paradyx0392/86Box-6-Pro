@@ -602,7 +602,7 @@ static const device_config_t morrison32_config[] = {
                 .files_no      = 1,
                 .local         = 0,
                 .size          = 131072,
-                .files         = { "roms/machines/thor/MR_MORIS.BIO", "" }
+                .files         = { "roms/machines/morrison32/MR_MORIS.BIO", "" }
             },
             { .files_no = 0 }
         }
@@ -831,7 +831,7 @@ static const device_config_t zappa_config[] = {
                 .name          = "MR BIOS 3.30",
                 .internal_name = "zappa_mr",
                 .bios_type     = BIOS_NORMAL,
-                .files_no      = 2,
+                .files_no      = 1,
                 .local         = 0,
                 .size          = 131072,
                 .files         = { "roms/machines/zappa/MR_ZAPPA.BIO", "" }

@@ -1303,6 +1303,15 @@ extern int             machine_at_ficva503a_init(const machine_t *);
 extern int             machine_at_5emaplus_init(const machine_t *);
 extern int             machine_at_5emapro_init(const machine_t *);
 extern int             machine_at_k6bv3p_a_init(const machine_t *);
+#ifdef EMU_DEVICE_H
+extern const device_t  sl54u5_device;
+#endif
+extern int             machine_at_sl54u5_init(const machine_t *);
+#ifdef EMU_DEVICE_H
+extern const device_t  sl56d5_device;
+#endif
+extern int             machine_at_sl56d5_init(const machine_t *);
+extern int             machine_at_sl56h5_init(const machine_t *);
 
 /* SiS 5591 */
 extern int             machine_at_5sg100_init(const machine_t *);

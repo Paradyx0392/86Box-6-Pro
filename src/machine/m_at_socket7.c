@@ -97,6 +97,24 @@ static const device_config_t p55t2p4_config[] = {
                 .files         = { "roms/machines/p55t2p4/T25I0207.AWD", "" }
             },
             {
+                .name          = "Award Modular BIOS v4.51PG - Revision 0207 (patched)",
+                .internal_name = "p55t2p4",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/p55t2p4/T25I0207P.BIN", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 0207-2",
+                .internal_name = "p55t2p4_1999",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/p55t2p4/p55t2p4-042899.bin", "" }
+            },
+            {
                 .name          = "Award Modular BIOS v4.51PG - Revision 0207-2 (Patched)",
                 .internal_name = "p55t2p4_patch",
                 .bios_type     = BIOS_NORMAL,
@@ -869,16 +887,80 @@ machine_at_5ivg_init(const machine_t *model)
     return ret;
 }
 
+static const device_config_t bsi430vx_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "8500tvxa",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "AMIBIOS 6 (071595) - Revision June 19",
+                .internal_name = "8500tvxa",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/8500tvxa/tvx0619b.rom", "" }
+            },
+            {
+                .name          = "AMIBIOS 6 (071595) - Revision October 16",
+                .internal_name = "8500tvxa_oct16",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/8500tvxa/tvx1016b.rom", "" }
+            },
+            {
+                .name          = "ADD-X - Revision 8.10e",
+                .internal_name = "8500tvxa_addx",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/8500tvxa/addx810.bin", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t bsi430vx_device = {
+    .name          = "Biostar MB-8500TVX-A",
+    .internal_name = "bsi430vx",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = bsi430vx_config
+};
+
 int
-machine_at_8500tvxa_init(const machine_t *model)
+machine_at_bsi430vx_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/8500tvxa/tvx0619b.rom",
-                           0x000e0000, 131072, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn  = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret = bios_load_linear(fn, 0x000e0000, 131072, 0);
+    device_context_restore();
 
     machine_at_common_init(model);
 
@@ -893,7 +975,12 @@ machine_at_8500tvxa_init(const machine_t *model)
     device_add(&i430vx_device);
     device_add(&piix3_device);
     device_add_params(machine_get_kbc_device(machine), (void *) model->kbc_params);
-    device_add_params(&um8669f_device, (void *) 0);
+
+    if (!strcmp(fn, "roms/machines/8500tvxa/tvx0619b.rom"))
+        device_add_params(&um8669f_device, (void *) 0);
+    else
+        device_add_params(&fdc37c669_device, (void *) FDC37C6XX_370);
+
     device_add(&sst_flash_29ee010_device);
 
     return ret;
@@ -1341,7 +1428,7 @@ static const device_config_t pb810_config[] = {
     // clang-format off
     {
         .name           = "bios",
-        .description    = "BIOS Version",
+        .description    = "OEM",
         .type           = CONFIG_BIOS,
         .default_string = "pb810",
         .default_int    = 0,
@@ -1350,7 +1437,7 @@ static const device_config_t pb810_config[] = {
         .selection      = { { 0 } },
         .bios           = {
             {
-                .name          = "NEC Revision 1.25I",
+                .name          = "NEC - Revision 1.25I",
                 .internal_name = "pb810_nec",
                 .bios_type     = BIOS_NORMAL,
                 .files_no      = 1,
@@ -1359,7 +1446,7 @@ static const device_config_t pb810_config[] = {
                 .files         = { "roms/machines/pb810/NECV125I.BIN", "" }
             },
             {
-                .name          = "Packard Bell Revision 1.25I",
+                .name          = "Packard Bell - Revision 1.25I",
                 .internal_name = "pb810",
                 .bios_type     = BIOS_NORMAL,
                 .files_no      = 1,
@@ -1611,6 +1698,15 @@ static const device_config_t tx97_config[] = {
                 .local         = 0,
                 .size          = 131072,
                 .files         = { "roms/machines/tx97/0112.001", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 0112-1 (beta and patch)",
+                .internal_name = "tx97_betap",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/tx97/0112_J2.BIN", "" }
             },
             { .files_no = 0 }
         }
@@ -2428,6 +2524,15 @@ static const device_config_t ficva502_config[] = {
         .spinner        = { 0 },
         .selection      = { { 0 } },
         .bios           = {
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 1.10AJ13",
+                .internal_name = "ficva502",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/ficva502/110aj13.bin", "" }
+            },
             {
                 .name          = "Award Modular BIOS v4.51PG - Revision 1.13AJ139",
                 .internal_name = "ficva502",

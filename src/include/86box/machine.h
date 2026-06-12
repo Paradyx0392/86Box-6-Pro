@@ -801,6 +801,9 @@ extern int             machine_at_win471_init(const machine_t *);
 extern const device_t  win471t_device;
 #endif
 extern int             machine_at_win471t_init(const machine_t *);
+#ifdef EMU_DEVICE_H
+extern const device_t  vi15g_device;
+#endif
 extern int             machine_at_vi15g_init(const machine_t *);
 #ifdef EMU_DEVICE_H
 extern const device_t  vli486sv2g_device;
@@ -1127,6 +1130,7 @@ extern int             machine_at_pc140_6260_init(const machine_t *);
 extern const device_t  ms5124_device;
 #endif
 extern int             machine_at_ms5124_init(const machine_t *);
+extern int             machine_at_r527_init(const machine_t *);
 
 /* VLSI Wildcat */
 extern int             machine_at_zeoswildcat_init(const machine_t *);
@@ -1166,7 +1170,10 @@ extern const device_t  p55tvp4_device;
 #endif
 extern int             machine_at_p55tvp4_init(const machine_t *);
 extern int             machine_at_5ivg_init(const machine_t *);
-extern int             machine_at_8500tvxa_init(const machine_t *);
+#ifdef EMU_DEVICE_H
+extern const device_t  bsi430vx_device;
+#endif
+extern int             machine_at_bsi430vx_init(const machine_t *);
 extern int             machine_at_presario2240_init(const machine_t *);
 extern int             machine_at_presario4500_init(const machine_t *);
 extern int             machine_at_dellhannibalp_init(const machine_t *);

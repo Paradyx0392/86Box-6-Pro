@@ -533,7 +533,7 @@ static const device_config_t atlantis_config[] = {
     // clang-format on
 };
 
-const device_t atlantis_device = {
+const device_t thor_device = {
     .name          = "Intel Advanced/AS",
     .internal_name = "atlantis",
     .flags         = 0,
@@ -790,7 +790,7 @@ static const device_config_t endeavor_config[] = {
     // clang-format on
 };
 
-const device_t endeavor_device = {
+const device_t thor_device = {
     .name          = "Intel Advanced/EV",
     .internal_name = "endeavor",
     .flags         = 0,
@@ -2014,6 +2014,35 @@ machine_at_ms5124_init(const machine_t *model)
     device_add(&sis_5511_device);
     device_add_params(machine_get_kbc_device(machine), (void *) model->kbc_params);
     device_add_params(&w837x7_device, (void *) (W83787F | W837X7_KEY_88));
+    device_add(&sst_flash_29ee010_device);
+
+    return ret;
+}
+
+int
+machine_at_r527_init(const machine_t *model)
+{
+    int ret;
+
+    ret = bios_load_linear("roms/machines/r527/r527m.bin",
+                           0x000e0000, 131072, 0);
+
+    if (bios_only || !ret)
+        return ret;
+
+    machine_at_common_init_ex(model, 2);
+
+    pci_init(PCI_CONFIG_TYPE_1 | FLAG_TRC_CONTROLS_CPURST);
+    pci_register_slot(0x00, PCI_CARD_NORTHBRIDGE, 0, 0, 0, 0);
+    pci_register_slot(0x01, PCI_CARD_SOUTHBRIDGE, 0, 0, 0, 0);
+    pci_register_slot(0x0D, PCI_CARD_NORMAL,      1, 2, 3, 4);
+    pci_register_slot(0x0F, PCI_CARD_NORMAL,      2, 3, 4, 1);
+    pci_register_slot(0x13, PCI_CARD_NORMAL,      3, 4, 1, 2);
+    pci_register_slot(0x11, PCI_CARD_VIDEO,       0, 0, 0, 0); /* Onboard video */
+
+    device_add(&sis_5511_device);
+    device_add_params(machine_get_kbc_device(machine), (void *) model->kbc_params);
+    device_add_params(&fdc37c6xx_device, (void *) FDC37C665);
     device_add(&sst_flash_29ee010_device);
 
     return ret;

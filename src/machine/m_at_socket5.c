@@ -112,6 +112,15 @@ static const device_config_t plato_config[] = {
                 .files         = { "roms/machines/plato/1002AX1P.BIO", "roms/machines/plato/1002AX1P.BI1", "" }
             },
             {
+                .name          = "Intel AMIBIOS - Revision 1.00.13.AX1T (Gateway 2000 OEM)",
+                .internal_name = "platogw2k",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 2,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/plato/1013ax1t.bio", "roms/machines/plato/1013ax1t.bi1", "" }
+            },
+            {
                 .name          = "Intel AMIBIOS - Revision 1.00.16.AX1",
                 .internal_name = "plato",
                 .bios_type     = BIOS_NORMAL,
@@ -602,7 +611,7 @@ static const device_config_t morrison32_config[] = {
                 .files_no      = 1,
                 .local         = 0,
                 .size          = 131072,
-                .files         = { "roms/machines/morrison32/MR_MORIS.BIO", "" }
+                .files         = { "roms/machines/thor/MR_MORIS.BIO", "" }
             },
             { .files_no = 0 }
         }
@@ -831,7 +840,7 @@ static const device_config_t zappa_config[] = {
                 .name          = "MR BIOS 3.30",
                 .internal_name = "zappa_mr",
                 .bios_type     = BIOS_NORMAL,
-                .files_no      = 1,
+                .files_no      = 2,
                 .local         = 0,
                 .size          = 131072,
                 .files         = { "roms/machines/zappa/MR_ZAPPA.BIO", "" }

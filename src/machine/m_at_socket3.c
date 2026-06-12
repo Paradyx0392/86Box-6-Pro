@@ -431,16 +431,70 @@ machine_at_win471t_init(const machine_t *model)
     return ret;
 }
 
+static const device_config_t vi15g_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "vi15g",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "AMI WinBIOS (121593) - Revision R2.30",
+                .internal_name = "vi15g",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 65536,
+                .files         = { "roms/machines/vi15g/VI15GR23.ROM", "" }
+            },
+            {
+                .name          = "MR BIOS 3.21 - Revision 11/16/95",
+                .internal_name = "vi15g_mr",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 65536,
+                .files         = { "roms/machines/vi15g/MRBIOS-SIS471-V3-21.BIN", "" }
+            },
+            { .files_no = 0 }
+        }
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t vi15g_device = {
+    .name          = "Acer Vi15G",
+    .internal_name = "vi15g",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = vi15g_config
+};
+
 int
 machine_at_vi15g_init(const machine_t *model)
 {
-    int ret;
+    int         ret = 0;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/vi15g/vi15gr23.rom",
-                           0x000f0000, 65536, 0);
-
-    if (bios_only || !ret)
+    /* No ROMs available */
+    if (!device_available(model->device))
         return ret;
+
+    device_context(model->device);
+    fn           = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret          = bios_load_linear(fn, 0x000f0000, 65536, 0);
 
     machine_at_sis_85c471_common_init(model);
 
@@ -478,15 +532,6 @@ static const device_config_t vli486sv2g_config[] = {
                 .local         = 0,
                 .size          = 65536,
                 .files         = { "roms/machines/vli486sv2g/0402.001", "" }
-            },
-            {
-                .name          = "MR BIOS 3.21 - Revision 11/16/95",
-                .internal_name = "vli486sv2g_mr",
-                .bios_type     = BIOS_NORMAL,
-                .files_no      = 1,
-                .local         = 0,
-                .size          = 65536,
-                .files         = { "roms/machines/vli486sv2g/MRBIOS-SIS471-V3-21.BIN", "" }
             },
             { .files_no = 0 }
         }

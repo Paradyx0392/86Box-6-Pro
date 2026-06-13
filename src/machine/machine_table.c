@@ -19322,7 +19322,7 @@ const machine_t machines[] = {
         .kbc_p1                   = 0x00000cf0,
         .gpio                     = 0xffffffff,
         .gpio_acpi                = 0xffffffff,
-        .device                   = NULL,
+        .device                   = &ficpa2012_device,
         .kbd_device               = NULL,
         .fdc_device               = NULL,
         .vid_device               = NULL,
@@ -19525,7 +19525,7 @@ const machine_t machines[] = {
         .vid_device               = NULL,
         .snd_device               = NULL,
         .net_device               = NULL,
-        .aliases                  = { "BCM VP1541", "BCM VP1543", "" }
+        .aliases                  = { "BCM VP1541", "BCM VP1543", "GVC FR555", "GVC FR555A", "GVC GBMP5AV", "" }
     },
     /* Has the ALi M1543C southbridge with on-chip KBC. */
     {

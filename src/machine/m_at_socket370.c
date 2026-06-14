@@ -284,11 +284,7 @@ machine_at_ga6bx7_init(const machine_t *model)
     device_add(&intel_flash_bxt_device);
     spd_register(SPD_TYPE_SDRAM, 0x7, 256);
     device_add(&w83782d_device); /* fans: Chassis, Power, CPU; temperatures: System, CPU, unused */
-    hwm_values.temperatures[0] = 0;  /* unused */
-    hwm_values.temperatures[1] += 4; /* CPU offset */
-    hwm_values.temperatures[2] = 0;  /* unused */
-    hwm_values.fans[1]         = 0;  /* unused */
-    hwm_values.fans[2]         = 0;  /* unused */
+    hwm_values.temperatures[2] = 0; /* unused */
 
     return ret;
 }

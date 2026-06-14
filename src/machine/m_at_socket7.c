@@ -2629,6 +2629,15 @@ static const device_config_t ficpa2012_config[] = {
                 .files         = { "roms/machines/ficpa2012/jb4154.bin", "" }
             },
             {
+                .name          = "Award Modular BIOS v4.51PG - Revision 1.13JB154 (patched)",
+                .internal_name = "ficpa2012_jb154p",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 131072,
+                .files         = { "roms/machines/ficpa2012/jb4154.pcd", "" }
+            },
+            {
                 .name          = "Award Modular BIOS v4.51PG - Revision 1.13JB16",
                 .internal_name = "ficpa2012",
                 .bios_type     = BIOS_NORMAL,

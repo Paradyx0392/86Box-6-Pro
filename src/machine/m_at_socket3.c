@@ -444,6 +444,15 @@ static const device_config_t vi15g_config[] = {
         .selection      = { { 0 } },
         .bios           = {
             {
+                .name          = "AMI WinBIOS (121593) - Revision R2.20",
+                .internal_name = "vi15g_r220",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 65536,
+                .files         = { "roms/machines/vi15g/VI15GR22.ROM", "" }
+            },
+            {
                 .name          = "AMI WinBIOS (121593) - Revision R2.30",
                 .internal_name = "vi15g",
                 .bios_type     = BIOS_NORMAL,

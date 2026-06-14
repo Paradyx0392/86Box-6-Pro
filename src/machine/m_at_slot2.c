@@ -39,13 +39,70 @@
 #include <86box/machine.h>
 
 /* i440GX */
+static const device_config_t gx62_config[] = {
+    // clang-format off
+    {
+        .name           = "bios",
+        .description    = "BIOS Version",
+        .type           = CONFIG_BIOS,
+        .default_string = "6gxu",
+        .default_int    = 0,
+        .file_filter    = NULL,
+        .spinner        = { 0 },
+        .selection      = { { 0 } },
+        .bios           = {
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision 1.2",
+                .internal_name = "6gxu_12",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 262144,
+                .files         = { "roms/machines/6gxu/6gxu.12", "" }
+            },
+            {
+                .name          = "Award Modular BIOS v4.51PG - Revision F1c",
+                .internal_name = "6gxu",
+                .bios_type     = BIOS_NORMAL,
+                .files_no      = 1,
+                .local         = 0,
+                .size          = 262144,
+                .files         = { "roms/machines/6gxu/6gxu.f1c", "" }
+            },
+            { .files_no = 0 }
+        },
+    },
+    { .name = "", .description = "", .type = CONFIG_END }
+    // clang-format on
+};
+
+const device_t gx62_device = {
+    .name          = "Gigabyte GA-6GXU",
+    .internal_name = "6gxu",
+    .flags         = 0,
+    .local         = 0,
+    .init          = NULL,
+    .close         = NULL,
+    .reset         = NULL,
+    .available     = NULL,
+    .speed_changed = NULL,
+    .force_redraw  = NULL,
+    .config        = gx62_config
+};
+
 int
 machine_at_6gxu_init(const machine_t *model)
 {
-    int ret;
+    int         ret;
+    const char *fn;
 
-    ret = bios_load_linear("roms/machines/6gxu/6gxu.f1c",
-                           0x000c0000, 262144, 0);
+    if (!device_available(model->device))
+        return 0;
+
+    device_context(model->device);
+    fn  = device_get_bios_file(machine_get_device(machine), device_get_config_bios("bios"), 0);
+    ret = bios_load_linear(fn, 0x000c0000, 262144, 0);
+    device_context_restore();
 
     if (bios_only || !ret)
         return ret;

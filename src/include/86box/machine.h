@@ -1516,6 +1516,9 @@ extern int             machine_at_p6bat_init(const machine_t *);
 extern const device_t  gx62_device;
 #endif
 extern int             machine_at_gx62_init(const machine_t *);
+#ifdef EMU_DEVICE_H
+extern const device_t  s2dge_device;
+#endif
 extern int             machine_at_s2dge_init(const machine_t *);
 
 /* m_at_socket370.c */
